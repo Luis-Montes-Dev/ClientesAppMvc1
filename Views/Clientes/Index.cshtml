@@ -1,0 +1,61 @@
+﻿@using ClientesAppMvc.Models
+
+@model IEnumerable<Cliente>
+
+@{
+    ViewData["Title"] = "Clientes List";
+}
+<div>
+    @if (TempData.IsReadOnly == false && TempData.ContainsKey("SuccessMessage"))
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+</div>
+<h1>@ViewData["Title"]</h1>
+<div >
+    <a asp-action="Create" class="btn btn-primary btn-outline-info">Create New Cliente</a>
+</div>
+<div>
+    <table class="table table-responsive-lg">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Fecha Registro</th>
+                <th>Esta Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model == null || !Model.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center">No hay clientes disponibles.</td>
+                </tr>
+            }
+            else
+            {
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Correo</td>
+                    <td>@cliente.Telefono</td>
+                    <td>@cliente.FechaRegistro.ToString("dd-MM-yyyy")</td>
+                    <td>@cliente.Activo.ToString()</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@cliente.Id" class="btn btn-success">Edit</a> 
+                        <a asp-action="Details" asp-route-id="@cliente.Id" class="btn btn-info">Details</a> 
+                        <a asp-action="Delete" asp-route-id="@cliente.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+            }
+        </tbody>
+    </table>
+</div>

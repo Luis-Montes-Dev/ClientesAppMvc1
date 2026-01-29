@@ -1,0 +1,33 @@
+﻿@model ClientesAppMvc.Models.Cliente
+@{
+    ViewData["Title"] = "Cliente Delete";
+
+}
+<div>
+    @if (TempData.IsReadOnly == false && TempData.ContainsKey("ErrorMessage"))
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+</div>
+<h1>@ViewData["Title"]</h1>
+<div>
+    <a asp-action="Index" class="btn btn-primary btn-outline-info">Back to List</a>
+</div>
+<div>
+    <ul>
+        <li><p><strong>ID: </strong>@Model.Id</p></li>
+        <li> <p><strong>Nombre: </strong>@Model.Nombre</p></li>
+        <li> <p><strong>Correo: </strong>@Model.Correo</p></li>
+        <li> <p><strong>Télefono: </strong>@Model.Telefono</p></li>
+        <li> <p><strong>Fecha de registro: </strong>@Model.FechaRegistro.ToString("dd-MM-yyyy")</p></li>
+        <li> <p><strong>Esta activo: </strong>@Model.Activo.ToString()</p></li>
+    </ul>
+</div>
+<div>
+    <form asp-action="Delete" asp-controller="Clientes" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+</div>
